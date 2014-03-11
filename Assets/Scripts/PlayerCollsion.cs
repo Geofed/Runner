@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class PlayerCollsion : MonoBehaviour {
-
+	public LayerMask collisionLayers;
+	protected Animator animator;
 	// Use this for initialization
 	void Start () {
-	
+		animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -15,7 +16,13 @@ public class PlayerCollsion : MonoBehaviour {
 
 	}
 	void OnCollisionEnter (Collision collision) {
-		Debug.Log("Collision!");
+		if ((collisionLayers.value & 1 << collision.gameObject.layer)!=0) {
+			animator.SetBool("OnDie", true);
+			Debug.Log ("onCollisionenter");
+			SendMessage("OnFail");
+
+		}
+
 	}
 
 }

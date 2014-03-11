@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
 	public float leftBoundry;
 	public float rightBoundry;
 	private ThirdPersonCharacter character;
+	private bool isInvulnerable = false;
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
@@ -42,6 +43,30 @@ public class PlayerController : MonoBehaviour {
 		transform.position = position;
 		//animator.SetFloat("Speed", float.MaxValue);
 		//animator.SetFloat("Direction", 0, 0, Time.deltaTime);	
+
 		character.Move (transform.forward, false, jump, transform.forward);
+	
+			
 	}
+	void OnFail () {
+		if (!isInvulnerable) {
+			Debug.Log ("Onfail");
+			StartCoroutine (PlayerReset ());
+		}
+
+
+	}
+
+	IEnumerator PlayerReset () {
+		isInvulnerable = true;
+		yield return new WaitForSeconds (2.533f);
+		animator.SetBool ("OnDie", false);
+		Vector3 position = transform.position - new Vector3 (0, 0, 6);
+		transform.position = position;
+		Debug.Log ("PlayerReset");
+		yield return new WaitForSeconds (5f);
+		isInvulnerable = false;
+	}
+
+
 }
