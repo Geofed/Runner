@@ -17,7 +17,6 @@ public class PlayerCollsion : MonoBehaviour {
 	}
 	void OnCollisionEnter (Collision collision) {
 		if ((collisionLayers.value & 1 << collision.gameObject.layer)!=0) {
-			animator.SetBool("OnDie", true);
 			Debug.Log ("onCollisionenter");
 			SendMessage("OnFail");
 
