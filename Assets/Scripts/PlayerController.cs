@@ -65,8 +65,7 @@ public class PlayerController : MonoBehaviour {
 		Debug.Log ("Sent");
 		yield return new WaitForSeconds (2.533f);
 		animator.SetBool ("OnDie", false);
-		Vector3 position = transform.position - new Vector3 (0, 0, 6);
-		transform.position = position;
+		SendMessage ("Res");
 		Debug.Log ("PlayerReset");
 		yield return new WaitForSeconds (5f);
 		isInvulnerable = false;
