@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		bool jump = Input.GetButton("Jump");
+		float horizontal = 0;
+		bool jump = false;
 		AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo (0);			
 
 		if (stateInfo.IsName ("Base Layer.Run")) {
@@ -27,7 +28,10 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			//animator.SetBool ("Jump", false);
 		}
-		float horizontal = Input.GetAxisRaw ("Horizontal");
+		if (Time.timeScale >= 1) {
+			horizontal = Input.GetAxisRaw("Horizontal");
+			jump = Input.GetButton("Jump");
+		}
 		Quaternion rotation = transform.rotation;
 		if (horizontal == -1 && leftBoundry < transform.position.x) {
 			rotation = Quaternion.Euler (0, -turnAngle, 0);
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour {
 		animator.SetBool ("OnDie", false);
 		SendMessage ("Res");
 		Debug.Log ("PlayerReset");
-		yield return new WaitForSeconds (5f);
+		yield return new WaitForSeconds (2f);
 		isInvulnerable = false;
 	}
 
