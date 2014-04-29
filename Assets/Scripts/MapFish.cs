@@ -30,9 +30,15 @@ public class MapFish : MonoBehaviour {
 			maxPieceIndex = piecePrefabs.Length;
 			minPieceIndex = maxPieceIndex - rangeOfPieces;
 		}
+		if (minPieceIndex > 15) {
+			minPieceIndex = 15;
+		}
 		int rand = Random.Range(minPieceIndex, maxPieceIndex);
 		Debug.Log(rand);
 		GameObject randomPiece = piecePrefabs [rand];
+		if (numOfPieces < 20) {
+			numOfPieces = numOfPieces++;
+		}
 		Vector3 position;
 		if (piecesOfTrackToPutOnTheThinginiOhAreTheyOkay.Count == 0) {
 			randomPiece = startPiece;
@@ -47,5 +53,6 @@ public class MapFish : MonoBehaviour {
 		lastPiece = (GameObject)Instantiate(randomPiece, position, Quaternion.identity);
 		piecesOfTrackToPutOnTheThinginiOhAreTheyOkay.Enqueue ( lastPiece );
 	}
+
 }
 
