@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MapFish : MonoBehaviour {
+	[Range(4, 20)]
+	public int rangeOfPieces;
 	public int numOfPieces;
 	public GameObject[] piecePrefabs;
 	protected Queue<GameObject> piecesOfTrackToPutOnTheThinginiOhAreTheyOkay;
@@ -22,7 +24,15 @@ public class MapFish : MonoBehaviour {
 		
 	}
 	void AddRandomPieceOfTrackOnThePlayField () {
-		GameObject randomPiece = piecePrefabs [Random.Range (0, piecePrefabs.Length)];
+		int minPieceIndex = PlayerData.Instance().level - 1;
+		int maxPieceIndex = minPieceIndex + rangeOfPieces;
+		if (maxPieceIndex > piecePrefabs.Length) {
+			maxPieceIndex = piecePrefabs.Length;
+			minPieceIndex = maxPieceIndex - rangeOfPieces;
+		}
+		int rand = Random.Range(minPieceIndex, maxPieceIndex);
+		Debug.Log(rand);
+		GameObject randomPiece = piecePrefabs [rand];
 		Vector3 position;
 		if (piecesOfTrackToPutOnTheThinginiOhAreTheyOkay.Count == 0) {
 			randomPiece = startPiece;
