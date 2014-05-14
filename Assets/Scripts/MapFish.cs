@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class MapFish : MonoBehaviour {
 	[Range(4, 20)]
 	public int rangeOfPieces;
-	public int numOfPieces;
+	[Range(2, 10)]
+	public int startNumberOfPieces;
+	private int numOfPieces;
 	public GameObject[] piecePrefabs;
 	protected Queue<GameObject> piecesOfTrackToPutOnTheThinginiOhAreTheyOkay;
 	public GameObject startPiece;
@@ -14,6 +16,9 @@ public class MapFish : MonoBehaviour {
 	protected GameObject lastPiece;
 	// Use this for initialization
 	void Start () {
+
+		numOfPieces = PlayerData.Instance().level + 3;
+	
 		piecesOfTrackToPutOnTheThinginiOhAreTheyOkay = new Queue<GameObject>();
 		while (piecesOfTrackToPutOnTheThinginiOhAreTheyOkay.Count<numOfPieces) 
 			AddRandomPieceOfTrackOnThePlayField ();
@@ -21,7 +26,7 @@ public class MapFish : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 	void AddRandomPieceOfTrackOnThePlayField () {
 		int minPieceIndex = PlayerData.Instance().level - 1;
@@ -36,9 +41,7 @@ public class MapFish : MonoBehaviour {
 		int rand = Random.Range(minPieceIndex, maxPieceIndex);
 		Debug.Log(rand);
 		GameObject randomPiece = piecePrefabs [rand];
-		if (numOfPieces < 20) {
-			numOfPieces = numOfPieces++;
-		}
+
 		Vector3 position;
 		if (piecesOfTrackToPutOnTheThinginiOhAreTheyOkay.Count == 0) {
 			randomPiece = startPiece;
